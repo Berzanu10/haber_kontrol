@@ -461,6 +461,231 @@
                 padding: 10px;
             }
         }
+        .credits-display {
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: var(--placeholder-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .credits-display i {
+            color: #4a90e2;
+            margin-right: 5px;
+        }
+        .credits-display.low {
+            color: #dc3545;
+        }
+        .credits-display.low i {
+            color: #dc3545;
+        }
+        .premium-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .premium-modal.show {
+            display: flex;
+        }
+        .premium-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            width: 95%;
+            max-width: 1200px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            position: relative;
+        }
+        .premium-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        .premium-close:hover {
+            transform: rotate(90deg);
+            color: #dc3545;
+        }
+        .premium-features {
+            margin: 20px 0;
+        }
+        .premium-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        .premium-feature i {
+            color: #ffd700;
+        }
+        .premium-price {
+            text-align: center;
+            font-size: 24px;
+            color: var(--text-primary);
+            margin: 20px 0;
+        }
+        .premium-price span {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        .premium-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .premium-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .premium-btn.subscribe {
+            background: linear-gradient(45deg, #ffd700, #ffa500);
+            color: white;
+        }
+        .premium-btn.close {
+            background: var(--placeholder-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .premium-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        .premium-plans {
+            display: flex;
+            gap: 30px;
+            margin: 30px 0;
+            justify-content: center;
+        }
+        .plan-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            width: 280px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        .plan-card.premium {
+            border-color: #4a90e2;
+        }
+        .plan-card.pro {
+            border-color: #ffd700;
+        }
+        .plan-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+        .plan-price {
+            font-size: 1.8em;
+            color: var(--text-primary);
+            margin: 20px 0;
+        }
+        .plan-price .monthly {
+            font-size: 0.7em;
+            color: var(--text-secondary);
+        }
+        .plan-price .yearly {
+            font-size: 0.6em;
+            color: #28a745;
+            display: block;
+            margin-top: 5px;
+        }
+        .plan-features {
+            text-align: left;
+            margin: 20px 0;
+            flex-grow: 1;
+        }
+        .plan-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-size: 1em;
+        }
+        .plan-feature i {
+            color: #28a745;
+            font-size: 1.1em;
+        }
+        .plan-feature.disabled {
+            color: var(--text-secondary);
+        }
+        .plan-feature.disabled i {
+            color: var(--text-secondary);
+        }
+        .plan-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            font-size: 1.1em;
+        }
+        .plan-btn.free {
+            background: var(--placeholder-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .plan-btn.premium {
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            color: white;
+        }
+        .plan-btn.pro {
+            background: linear-gradient(45deg, #ffd700, #ffa500);
+            color: #2c3e50;
+        }
+        .plan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        .plan-tokens {
+            font-size: 1.2em;
+            color: #4a90e2;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .plan-discount {
+            background: #28a745;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 8px;
+            display: block;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -474,7 +699,7 @@
     <!-- Kullanıcı Bilgisi -->
     <div class="user-info" id="userInfo">
         <i class="fas fa-user"></i>
-        <span class="credits">Kalan Hak: <span id="remainingCredits">10</span></span>
+        <span class="credits">Kalan Hak: <span id="remainingCredits">2</span>/2</span>
     </div>
 
     <!-- Giriş/Kayıt Butonları -->
@@ -516,6 +741,10 @@
                             <label for="newsUrl" class="form-label">Haber URL'si</label>
                             <input type="url" class="form-control" id="newsUrl" required
                                    placeholder="https://example.com/haber">
+                        </div>
+                        <div class="credits-display" id="creditsDisplay">
+                            <i class="fas fa-ticket-alt"></i>
+                            Kalan Hak: <span id="remainingCredits">2</span>/2
                         </div>
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-search me-2"></i>Analiz Et
@@ -566,6 +795,141 @@
                 <i class="fas fa-ad me-2"></i>Reklam Alanı
                 <br>
                 <small>300x600</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Modal -->
+    <div class="premium-modal" id="premiumModal">
+        <div class="premium-content">
+            <button class="premium-close" id="closePremiumBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2><i class="fas fa-crown"></i> Üyelik Planları</h2>
+            <div class="premium-plans">
+                <!-- Ücretsiz Plan -->
+                <div class="plan-card">
+                    <div class="plan-name">Ücretsiz</div>
+                    <div class="plan-tokens">Günlük 2 Analiz Hakkı</div>
+                    <div class="plan-price">
+                        ₺0
+                        <span class="monthly">/ay</span>
+                    </div>
+                    <div class="plan-features">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Günlük 2 analiz hakkı</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Detaylı raporlar</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Gelişmiş analiz özellikleri</span>
+                        </div>
+                        <div class="plan-feature disabled">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Reklamsız deneyim</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn free" disabled>Mevcut Plan</button>
+                </div>
+
+                <!-- Aylık Plan -->
+                <div class="plan-card premium">
+                    <div class="plan-name">Aylık</div>
+                    <div class="plan-tokens">60 Analiz Hakkı</div>
+                    <div class="plan-price">
+                        ₺49.99
+                        <span class="monthly">/ay</span>
+                    </div>
+                    <div class="plan-features">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>60 analiz hakkı</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Detaylı raporlar</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Gelişmiş analiz özellikleri</span>
+                        </div>
+                        <div class="plan-feature disabled">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Reklamsız deneyim</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn premium" id="monthlySubscribeBtn">
+                        <i class="fas fa-crown"></i> Aylık Üye Ol
+                    </button>
+                </div>
+
+                <!-- 6 Aylık Plan -->
+                <div class="plan-card premium">
+                    <div class="plan-name">6 Aylık</div>
+                    <div class="plan-tokens">400 Analiz Hakkı</div>
+                    <div class="plan-discount">%15 İndirim</div>
+                    <div class="plan-price">
+                        ₺249.99
+                        <span class="monthly">/6 ay</span>
+                    </div>
+                    <div class="plan-features">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>400 analiz hakkı</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Detaylı raporlar</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Gelişmiş analiz özellikleri</span>
+                        </div>
+                        <div class="plan-feature disabled">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Reklamsız deneyim</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn premium" id="sixMonthSubscribeBtn">
+                        <i class="fas fa-crown"></i> 6 Aylık Üye Ol
+                    </button>
+                </div>
+
+                <!-- Yıllık Plan -->
+                <div class="plan-card pro">
+                    <div class="plan-name">Yıllık</div>
+                    <div class="plan-tokens">700 Analiz Hakkı</div>
+                    <div class="plan-discount">%20 İndirim</div>
+                    <div class="plan-price">
+                        ₺399.99
+                        <span class="monthly">/yıl</span>
+                    </div>
+                    <div class="plan-features">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>700 analiz hakkı</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Detaylı raporlar</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Gelişmiş analiz özellikleri</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Reklamsız deneyim</span>
+                        </div>
+                    </div>
+                    <button class="plan-btn pro" id="yearlySubscribeBtn">
+                        <i class="fas fa-star"></i> Yıllık Üye Ol
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -626,9 +990,68 @@
             alert('Kayıt olma özelliği yakında eklenecek!');
         });
 
-        document.getElementById('premiumBtn').addEventListener('click', (e) => {
+        // Kalan hak kontrolü için değişken
+        let remainingCredits = 2; // Günlük 2 hak
+
+        // Kalan hak göstergesini güncelle
+        function updateCreditsDisplay() {
+            const creditsDisplay = document.getElementById('creditsDisplay');
+            const remainingCreditsSpan = document.getElementById('remainingCredits');
+            const userInfoCredits = document.querySelector('.user-info .credits span');
+            
+            remainingCreditsSpan.textContent = remainingCredits;
+            if (userInfoCredits) {
+                userInfoCredits.textContent = remainingCredits;
+            }
+            
+            if (remainingCredits <= 1) {
+                creditsDisplay.classList.add('low');
+            } else {
+                creditsDisplay.classList.remove('low');
+            }
+        }
+
+        // Premium modal işlemleri
+        const premiumModal = document.getElementById('premiumModal');
+        const premiumBtn = document.getElementById('premiumBtn');
+        const closePremiumBtn = document.getElementById('closePremiumBtn');
+        const monthlySubscribeBtn = document.getElementById('monthlySubscribeBtn');
+        const sixMonthSubscribeBtn = document.getElementById('sixMonthSubscribeBtn');
+        const yearlySubscribeBtn = document.getElementById('yearlySubscribeBtn');
+
+        // Kalan hak göstergesini güncelle
+        function updateCreditsDisplay() {
+            const creditsDisplay = document.getElementById('creditsDisplay');
+            const remainingCreditsSpan = document.getElementById('remainingCredits');
+            const userInfoCredits = document.querySelector('.user-info .credits span');
+            
+            remainingCreditsSpan.textContent = remainingCredits;
+            if (userInfoCredits) {
+                userInfoCredits.textContent = remainingCredits;
+            }
+            
+            if (remainingCredits <= 1) {
+                creditsDisplay.classList.add('low');
+            } else {
+                creditsDisplay.classList.remove('low');
+            }
+        }
+
+        // Premium modal işlemleri
+        premiumBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('Premium özelliği yakında eklenecek!');
+            premiumModal.classList.add('show');
+        });
+
+        closePremiumBtn.addEventListener('click', () => {
+            premiumModal.classList.remove('show');
+        });
+
+        // Modal dışına tıklandığında kapatma
+        premiumModal.addEventListener('click', (e) => {
+            if (e.target === premiumModal) {
+                premiumModal.classList.remove('show');
+            }
         });
 
         // Haber analizi
@@ -636,6 +1059,20 @@
             e.preventDefault();
             
             const url = document.getElementById('newsUrl').value;
+            
+            // URL kontrolü
+            if (!url) {
+                alert('Lütfen bir haber URL\'si girin.');
+                return;
+            }
+
+            // Hak kontrolü
+            if (remainingCredits <= 0) {
+                premiumModal.classList.add('show');
+                return;
+            }
+
+            // Hak varsa işleme devam et
             const loading = document.querySelector('.loading');
             const resultBox = document.getElementById('resultBox');
             const analysisResult = document.getElementById('analysisResult');
@@ -659,6 +1096,10 @@
                 const data = await response.json();
                 
                 if (response.ok) {
+                    // Başarılı analiz sonrası hakkı azalt
+                    remainingCredits--;
+                    updateCreditsDisplay();
+
                     const sections = parseAnalysis(data.analysis);
                     displayResults(sections);
                     resultBox.style.display = 'block';
@@ -667,6 +1108,13 @@
                     if (data.imageUrl) {
                         newsImage.src = data.imageUrl;
                         newsImage.style.display = 'block';
+                    }
+
+                    // Hak bittiğinde premium modalı göster
+                    if (remainingCredits <= 0) {
+                        setTimeout(() => {
+                            premiumModal.classList.add('show');
+                        }, 1000);
                     }
                 } else {
                     alert('Hata: ' + data.error);
@@ -761,6 +1209,22 @@
             return '#dc3545'; // Kırmızı
         }
 
+        // Üyelik butonları için event listener'lar
+        monthlySubscribeBtn.addEventListener('click', () => {
+            alert('Aylık üyelik ödeme sistemi yakında eklenecek!');
+            premiumModal.classList.remove('show');
+        });
+
+        sixMonthSubscribeBtn.addEventListener('click', () => {
+            alert('6 aylık üyelik ödeme sistemi yakında eklenecek!');
+            premiumModal.classList.remove('show');
+        });
+
+        yearlySubscribeBtn.addEventListener('click', () => {
+            alert('Yıllık üyelik ödeme sistemi yakında eklenecek!');
+            premiumModal.classList.remove('show');
+        });
+
         // Yeni sorgulama butonu için event listener
         document.getElementById('newQueryBtn').addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -773,7 +1237,15 @@
             document.getElementById('newQueryContainer').style.display = 'none';
             document.getElementById('analysisResult').innerHTML = '';
             document.getElementById('zeroAccuracyMessage').classList.remove('show');
+
+            // Hak bittiğinde premium modalı göster
+            if (remainingCredits <= 0) {
+                premiumModal.classList.add('show');
+            }
         });
+
+        // Sayfa yüklendiğinde kalan hak göstergesini güncelle
+        updateCreditsDisplay();
     </script>
 </body>
 </html> 

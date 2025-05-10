@@ -72,6 +72,7 @@ def analyze_news(article_text):
 def home():
     return render_template('index.html')
 
+
 @app.route('/analyze', methods=['POST'])
 def analyze():
     url = request.json.get('url')
