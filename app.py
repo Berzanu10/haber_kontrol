@@ -55,6 +55,13 @@ def extract_article_content(url):
 
 def analyze_news(article_text):
     prompt = f"""
+    Etik kurallarına uyarken aşağıdaki bilgileri kullanın:
+    Etik Kurallar:
+   - Kişisel verileri koru
+   - Nefret söylemi ve ayrımcılık içeren içerikleri reddet
+   - Telif haklarına saygı göster
+   - Gizlilik ve mahremiyeti koru
+   
     Lütfen aşağıdaki haber metnini analiz edin ve şu bilgileri verin:
     1. Haberin kısa bir özeti (100 kelime)
     2. Haberin doğruluk oranı (0-100 arası)
