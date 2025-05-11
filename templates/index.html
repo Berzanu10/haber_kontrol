@@ -462,24 +462,7 @@
             }
         }
         .credits-display {
-            text-align: center;
-            margin: 15px 0;
-            padding: 10px;
-            background: var(--placeholder-bg);
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-        .credits-display i {
-            color: #4a90e2;
-            margin-right: 5px;
-        }
-        .credits-display.low {
-            color: #dc3545;
-        }
-        .credits-display.low i {
-            color: #dc3545;
+            display: none;
         }
         .premium-modal {
             display: none;
@@ -686,9 +669,104 @@
             display: block;
             margin-top: 5px;
         }
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #dc3545;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+            animation: slideDown 0.5s ease;
+        }
+        .notification.show {
+            display: flex;
+        }
+        @keyframes slideDown {
+            from {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+        .toaster {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #dc3545;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+            max-width: 350px;
+        }
+        .toaster.show {
+            display: flex;
+        }
+        .toaster i {
+            font-size: 1.2em;
+        }
+        .toaster-content {
+            flex: 1;
+        }
+        .toaster-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .toaster-message {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Bildirim -->
+    <div class="notification" id="creditNotification">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Günlük hak sınırınıza ulaştınız!</span>
+    </div>
+
+    <!-- Toaster Bildirimi -->
+    <div class="toaster" id="toaster">
+        <i class="fas fa-exclamation-circle"></i>
+        <div class="toaster-content">
+            <div class="toaster-title">Uyarı</div>
+            <div class="toaster-message" id="toasterMessage"></div>
+        </div>
+    </div>
+
     <!-- Tema Değiştirme Butonu -->
     <button class="theme-toggle" id="themeToggle" title="Tema Değiştir">
         <div class="theme-toggle-slider">
@@ -699,7 +777,6 @@
     <!-- Kullanıcı Bilgisi -->
     <div class="user-info" id="userInfo">
         <i class="fas fa-user"></i>
-        <span class="credits">Kalan Hak: <span id="remainingCredits">2</span>/2</span>
     </div>
 
     <!-- Giriş/Kayıt Butonları -->
@@ -741,10 +818,6 @@
                             <label for="newsUrl" class="form-label">Haber URL'si</label>
                             <input type="url" class="form-control" id="newsUrl" required
                                    placeholder="https://example.com/haber">
-                        </div>
-                        <div class="credits-display" id="creditsDisplay">
-                            <i class="fas fa-ticket-alt"></i>
-                            Kalan Hak: <span id="remainingCredits">2</span>/2
                         </div>
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-search me-2"></i>Analiz Et
@@ -992,22 +1065,18 @@
 
         // Kalan hak kontrolü için değişken
         let remainingCredits = 2; // Günlük 2 hak
+        let analysisCount = 0; // Analiz sayısını takip etmek için
 
         // Kalan hak göstergesini güncelle
         function updateCreditsDisplay() {
-            const creditsDisplay = document.getElementById('creditsDisplay');
-            const remainingCreditsSpan = document.getElementById('remainingCredits');
-            const userInfoCredits = document.querySelector('.user-info .credits span');
-            
-            remainingCreditsSpan.textContent = remainingCredits;
-            if (userInfoCredits) {
-                userInfoCredits.textContent = remainingCredits;
-            }
-            
-            if (remainingCredits <= 1) {
-                creditsDisplay.classList.add('low');
-            } else {
-                creditsDisplay.classList.remove('low');
+            // 2 analizden sonra sadece uyarı göster
+            if (analysisCount === 2) {
+                // Bildirimi göster
+                creditNotification.classList.add('show');
+                // 3 saniye sonra bildirimi gizle
+                setTimeout(() => {
+                    creditNotification.classList.remove('show');
+                }, 3000);
             }
         }
 
@@ -1018,24 +1087,7 @@
         const monthlySubscribeBtn = document.getElementById('monthlySubscribeBtn');
         const sixMonthSubscribeBtn = document.getElementById('sixMonthSubscribeBtn');
         const yearlySubscribeBtn = document.getElementById('yearlySubscribeBtn');
-
-        // Kalan hak göstergesini güncelle
-        function updateCreditsDisplay() {
-            const creditsDisplay = document.getElementById('creditsDisplay');
-            const remainingCreditsSpan = document.getElementById('remainingCredits');
-            const userInfoCredits = document.querySelector('.user-info .credits span');
-            
-            remainingCreditsSpan.textContent = remainingCredits;
-            if (userInfoCredits) {
-                userInfoCredits.textContent = remainingCredits;
-            }
-            
-            if (remainingCredits <= 1) {
-                creditsDisplay.classList.add('low');
-            } else {
-                creditsDisplay.classList.remove('low');
-            }
-        }
+        const creditNotification = document.getElementById('creditNotification');
 
         // Premium modal işlemleri
         premiumBtn.addEventListener('click', (e) => {
@@ -1054,6 +1106,20 @@
             }
         });
 
+        // Toaster fonksiyonu
+        function showToaster(message, title = 'Uyarı') {
+            const toaster = document.getElementById('toaster');
+            const toasterMessage = document.getElementById('toasterMessage');
+            
+            toasterMessage.textContent = message;
+            toaster.classList.add('show');
+            
+            // 3 saniye sonra toaster'ı kaldır
+            setTimeout(() => {
+                toaster.classList.remove('show');
+            }, 3000);
+        }
+
         // Haber analizi
         document.getElementById('newsForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1062,14 +1128,22 @@
             
             // URL kontrolü
             if (!url) {
-                alert('Lütfen bir haber URL\'si girin.');
+                showToaster('Lütfen bir haber URL\'si girin.');
                 return;
             }
 
-            // Hak kontrolü
-            if (remainingCredits <= 0) {
-                premiumModal.classList.add('show');
-                return;
+            // Analiz sayısı kontrolü
+            if (analysisCount >= 2) {
+                try {
+                    // Hata fırlat
+                    throw new Error('Günlük hak sınırınıza ulaştınız. Premium üye olarak daha fazla analiz yapabilirsiniz!');
+                } catch (error) {
+                    // Hata mesajını göster
+                    showToaster(error.message);
+                    // Premium modalı göster
+                    premiumModal.classList.add('show');
+                    return;
+                }
             }
 
             // Hak varsa işleme devam et
@@ -1096,8 +1170,8 @@
                 const data = await response.json();
                 
                 if (response.ok) {
-                    // Başarılı analiz sonrası hakkı azalt
-                    remainingCredits--;
+                    // Başarılı analiz sonrası sayacı artır
+                    analysisCount++;
                     updateCreditsDisplay();
 
                     const sections = parseAnalysis(data.analysis);
@@ -1109,18 +1183,11 @@
                         newsImage.src = data.imageUrl;
                         newsImage.style.display = 'block';
                     }
-
-                    // Hak bittiğinde premium modalı göster
-                    if (remainingCredits <= 0) {
-                        setTimeout(() => {
-                            premiumModal.classList.add('show');
-                        }, 1000);
-                    }
                 } else {
-                    alert('Hata: ' + data.error);
+                    throw new Error(data.error || 'Analiz sırasında bir hata oluştu.');
                 }
             } catch (error) {
-                alert('Bir hata oluştu: ' + error.message);
+                showToaster('Bir hata oluştu: ' + error.message);
             } finally {
                 loading.style.display = 'none';
             }
@@ -1238,9 +1305,14 @@
             document.getElementById('analysisResult').innerHTML = '';
             document.getElementById('zeroAccuracyMessage').classList.remove('show');
 
-            // Hak bittiğinde premium modalı göster
-            if (remainingCredits <= 0) {
-                premiumModal.classList.add('show');
+            // 2 analizden sonra premium modalı göster
+            if (analysisCount >= 2) {
+                try {
+                    throw new Error('Günlük hak sınırınıza ulaştınız. Premium üye olarak daha fazla analiz yapabilirsiniz!');
+                } catch (error) {
+                    showToaster(error.message);
+                    premiumModal.classList.add('show');
+                }
             }
         });
 
