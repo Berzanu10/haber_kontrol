@@ -749,6 +749,164 @@
                 opacity: 0;
             }
         }
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .auth-modal.show {
+            display: flex;
+        }
+        .auth-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            position: relative;
+        }
+        .auth-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+        .auth-close:hover {
+            transform: rotate(90deg);
+            color: #dc3545;
+        }
+        .auth-title {
+            text-align: center;
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .auth-input {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        .auth-input:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+        .auth-button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+        .social-login {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .social-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: var(--text-secondary);
+        }
+        .social-divider::before,
+        .social-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .social-divider span {
+            padding: 0 10px;
+        }
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 0.95em;
+        }
+        .social-button:hover {
+            background: var(--placeholder-bg);
+            transform: translateY(-2px);
+        }
+        .social-button.google {
+            border-color: #DB4437;
+            color: #DB4437;
+        }
+        .social-button.google:hover {
+            background: rgba(219, 68, 55, 0.1);
+        }
+        .social-button.apple {
+            border-color: #000;
+            color: #000;
+        }
+        .social-button.apple:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .social-button i {
+            font-size: 1.2em;
+        }
+        .google-logo {
+            width: 18px;
+            height: 18px;
+            margin-right: 2px;
+        }
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-secondary);
+        }
+        .auth-switch a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -1007,6 +1165,84 @@
         </div>
     </div>
 
+    <!-- Giriş Modal -->
+    <div class="auth-modal" id="loginModal">
+        <div class="auth-content">
+            <button class="auth-close" id="closeLoginBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="auth-title">Giriş Yap</h2>
+            <form class="auth-form">
+                <input type="email" class="auth-input" placeholder="E-posta" required>
+                <input type="password" class="auth-input" placeholder="Şifre" required>
+                <button type="submit" class="auth-button">Giriş Yap</button>
+            </form>
+            <div class="social-login">
+                <div class="social-divider">
+                    <span>veya</span>
+                </div>
+                <div class="social-buttons">
+                    <button class="social-button google">
+                        <svg class="google-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                        </svg>
+                        Google ile devam et
+                    </button>
+                    <button class="social-button apple">
+                        <i class="fab fa-apple"></i>
+                        Apple ile devam et
+                    </button>
+                </div>
+            </div>
+            <div class="auth-switch">
+                Hesabınız yok mu? <a id="showRegisterBtn">Kayıt Ol</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kayıt Modal -->
+    <div class="auth-modal" id="registerModal">
+        <div class="auth-content">
+            <button class="auth-close" id="closeRegisterBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="auth-title">Kayıt Ol</h2>
+            <form class="auth-form">
+                <input type="text" class="auth-input" placeholder="Ad Soyad" required>
+                <input type="email" class="auth-input" placeholder="E-posta" required>
+                <input type="password" class="auth-input" placeholder="Şifre" required>
+                <input type="password" class="auth-input" placeholder="Şifre Tekrar" required>
+                <button type="submit" class="auth-button">Kayıt Ol</button>
+            </form>
+            <div class="social-login">
+                <div class="social-divider">
+                    <span>veya</span>
+                </div>
+                <div class="social-buttons">
+                    <button class="social-button google">
+                        <svg class="google-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                        </svg>
+                        Google ile devam et
+                    </button>
+                    <button class="social-button apple">
+                        <i class="fab fa-apple"></i>
+                        Apple ile devam et
+                    </button>
+                </div>
+            </div>
+            <div class="auth-switch">
+                Zaten hesabınız var mı? <a id="showLoginBtn">Giriş Yap</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Kullanıcı bilgilerini kontrol et
         function checkUserSession() {
@@ -1055,12 +1291,12 @@
         // Giriş/Kayıt butonları
         document.getElementById('loginBtn').addEventListener('click', (e) => {
             e.preventDefault();
-            alert('Giriş yapma özelliği yakında eklenecek!');
+            loginModal.classList.add('show');
         });
 
         document.getElementById('registerBtn').addEventListener('click', (e) => {
             e.preventDefault();
-            alert('Kayıt olma özelliği yakında eklenecek!');
+            registerModal.classList.add('show');
         });
 
         // Kalan hak kontrolü için değişken
@@ -1318,6 +1554,90 @@
 
         // Sayfa yüklendiğinde kalan hak göstergesini güncelle
         updateCreditsDisplay();
+
+        // Auth modal işlemleri
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const closeLoginBtn = document.getElementById('closeLoginBtn');
+        const closeRegisterBtn = document.getElementById('closeRegisterBtn');
+        const showRegisterBtn = document.getElementById('showRegisterBtn');
+        const showLoginBtn = document.getElementById('showLoginBtn');
+
+        // Giriş modalı işlemleri
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.add('show');
+        });
+
+        closeLoginBtn.addEventListener('click', () => {
+            loginModal.classList.remove('show');
+        });
+
+        // Kayıt modalı işlemleri
+        registerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.classList.add('show');
+        });
+
+        closeRegisterBtn.addEventListener('click', () => {
+            registerModal.classList.remove('show');
+        });
+
+        // Modal geçişleri
+        showRegisterBtn.addEventListener('click', () => {
+            loginModal.classList.remove('show');
+            registerModal.classList.add('show');
+        });
+
+        showLoginBtn.addEventListener('click', () => {
+            registerModal.classList.remove('show');
+            loginModal.classList.add('show');
+        });
+
+        // Modal dışına tıklandığında kapatma
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('show');
+            }
+        });
+
+        registerModal.addEventListener('click', (e) => {
+            if (e.target === registerModal) {
+                registerModal.classList.remove('show');
+            }
+        });
+
+        // Form submit işlemleri
+        loginModal.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToaster('Giriş yapma özelliği yakında eklenecek!');
+            loginModal.classList.remove('show');
+        });
+
+        registerModal.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToaster('Kayıt olma özelliği yakında eklenecek!');
+            registerModal.classList.remove('show');
+        });
+
+        // Google ve Apple ile giriş/kayıt butonları
+        document.querySelectorAll('.social-button.google').forEach(button => {
+            button.addEventListener('click', () => {
+                showToaster('Google ile giriş özelliği yakında eklenecek!');
+                loginModal.classList.remove('show');
+                registerModal.classList.remove('show');
+            });
+        });
+
+        document.querySelectorAll('.social-button.apple').forEach(button => {
+            button.addEventListener('click', () => {
+                showToaster('Apple ile giriş özelliği yakında eklenecek!');
+                loginModal.classList.remove('show');
+                registerModal.classList.remove('show');
+            });
+        });
     </script>
 </body>
 </html> 
