@@ -6,6 +6,8 @@
     <title>Haber Kontrol</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google OAuth Client -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root[data-theme="light"] {
             --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -879,11 +881,14 @@
             background: rgba(219, 68, 55, 0.1);
         }
         .social-button.apple {
-            border-color: #000;
-            color: #000;
+            border-color: var(--text-primary);
+            color: var(--text-primary);
         }
         .social-button.apple:hover {
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .social-button.apple i {
+            color: var(--text-primary);
         }
         .social-button i {
             font-size: 1.2em;
@@ -1172,7 +1177,7 @@
                 <i class="fas fa-times"></i>
             </button>
             <h2 class="auth-title">Giriş Yap</h2>
-            <form class="auth-form">
+            <form class="auth-form" id="loginForm">
                 <input type="email" class="auth-input" placeholder="E-posta" required>
                 <input type="password" class="auth-input" placeholder="Şifre" required>
                 <button type="submit" class="auth-button">Giriş Yap</button>
@@ -1182,15 +1187,23 @@
                     <span>veya</span>
                 </div>
                 <div class="social-buttons">
-                    <button class="social-button google">
-                        <svg class="google-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                        </svg>
-                        Google ile devam et
-                    </button>
+                    <div id="g_id_onload"
+                         data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                         data-context="signin"
+                         data-ux_mode="popup"
+                         data-callback="handleGoogleSignIn"
+                         data-auto_prompt="false"
+                         data-itp_support="true">
+                    </div>
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left"
+                         data-width="100%">
+                    </div>
                     <button class="social-button apple">
                         <i class="fab fa-apple"></i>
                         Apple ile devam et
@@ -1210,11 +1223,11 @@
                 <i class="fas fa-times"></i>
             </button>
             <h2 class="auth-title">Kayıt Ol</h2>
-            <form class="auth-form">
-                <input type="text" class="auth-input" placeholder="Ad Soyad" required>
-                <input type="email" class="auth-input" placeholder="E-posta" required>
-                <input type="password" class="auth-input" placeholder="Şifre" required>
-                <input type="password" class="auth-input" placeholder="Şifre Tekrar" required>
+            <form class="auth-form" id="registerForm">
+                <input type="text" class="auth-input" id="registerName" placeholder="Ad Soyad" required>
+                <input type="email" class="auth-input" id="registerEmail" placeholder="E-posta" required>
+                <input type="password" class="auth-input" id="registerPassword" placeholder="Şifre" required>
+                <input type="password" class="auth-input" id="registerPasswordConfirm" placeholder="Şifre Tekrar" required>
                 <button type="submit" class="auth-button">Kayıt Ol</button>
             </form>
             <div class="social-login">
@@ -1222,15 +1235,23 @@
                     <span>veya</span>
                 </div>
                 <div class="social-buttons">
-                    <button class="social-button google">
-                        <svg class="google-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                        </svg>
-                        Google ile devam et
-                    </button>
+                    <div id="g_id_onload_register"
+                         data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                         data-context="signup"
+                         data-ux_mode="popup"
+                         data-callback="handleGoogleSignUp"
+                         data-auto_prompt="false"
+                         data-itp_support="true">
+                    </div>
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="signup_with"
+                         data-size="large"
+                         data-logo_alignment="left"
+                         data-width="100%">
+                    </div>
                     <button class="social-button apple">
                         <i class="fab fa-apple"></i>
                         Apple ile devam et
@@ -1244,6 +1265,17 @@
     </div>
 
     <script>
+        // URL parametresini kontrol et
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const newsUrl = urlParams.get('url');
+            
+            if (newsUrl) {
+                document.getElementById('newsUrl').value = newsUrl;
+                document.getElementById('newsForm').dispatchEvent(new Event('submit'));
+            }
+        });
+
         // Kullanıcı bilgilerini kontrol et
         function checkUserSession() {
             const userInfo = localStorage.getItem('userInfo');
@@ -1638,6 +1670,192 @@
                 registerModal.classList.remove('show');
             });
         });
+
+        // Google Sign-In işleyicisi
+        function handleGoogleSignIn(response) {
+            // Google'dan gelen credential'ı al
+            const credential = response.credential;
+            
+            // JWT token'ı decode et
+            const payload = JSON.parse(atob(credential.split('.')[1]));
+            
+            // Kullanıcı bilgilerini al
+            const userData = {
+                email: payload.email,
+                name: payload.name,
+                picture: payload.picture,
+                sub: payload.sub
+            };
+
+            // Kullanıcı bilgilerini localStorage'a kaydet
+            localStorage.setItem('userInfo', JSON.stringify(userData));
+            
+            // UI'ı güncelle
+            document.getElementById('userInfo').classList.add('show');
+            document.getElementById('authButtons').style.display = 'none';
+            
+            // Modalı kapat
+            document.getElementById('loginModal').classList.remove('show');
+            
+            // Başarılı giriş bildirimi göster
+            showToaster('Google hesabınızla başarıyla giriş yaptınız!', 'Başarılı');
+        }
+
+        // Google Sign-Up işleyicisi
+        function handleGoogleSignUp(response) {
+            // Google'dan gelen credential'ı al
+            const credential = response.credential;
+            
+            // JWT token'ı decode et
+            const payload = JSON.parse(atob(credential.split('.')[1]));
+            
+            // Kullanıcı bilgilerini al
+            const userData = {
+                email: payload.email,
+                name: payload.name,
+                picture: payload.picture,
+                sub: payload.sub
+            };
+
+            // Kullanıcı bilgilerini localStorage'a kaydet
+            localStorage.setItem('userInfo', JSON.stringify(userData));
+            
+            // UI'ı güncelle
+            document.getElementById('userInfo').classList.add('show');
+            document.getElementById('authButtons').style.display = 'none';
+            
+            // Modalı kapat
+            document.getElementById('registerModal').classList.remove('show');
+            
+            // Başarılı kayıt bildirimi göster
+            showToaster('Google hesabınızla başarıyla kayıt oldunuz!', 'Başarılı');
+        }
+
+        // Kayıt formu işleme
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
+
+            // Şifre kontrolü
+            if (password !== passwordConfirm) {
+                showToaster('Şifreler eşleşmiyor!', 'Hata');
+                return;
+            }
+
+            // Şifre güvenlik kontrolü
+            if (password.length < 6) {
+                showToaster('Şifre en az 6 karakter olmalıdır!', 'Hata');
+                return;
+            }
+
+            try {
+                // API'ye kayıt isteği gönder
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Başarılı kayıt
+                    const userData = {
+                        name: data.name,
+                        email: data.email,
+                        picture: data.picture || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(name)
+                    };
+
+                    // Kullanıcı bilgilerini kaydet
+                    localStorage.setItem('userInfo', JSON.stringify(userData));
+                    
+                    // UI'ı güncelle
+                    document.getElementById('userInfo').classList.add('show');
+                    document.getElementById('authButtons').style.display = 'none';
+                    
+                    // Modalı kapat
+                    document.getElementById('registerModal').classList.remove('show');
+                    
+                    // Başarılı kayıt bildirimi
+                    showToaster('Kayıt işlemi başarıyla tamamlandı!', 'Başarılı');
+                } else {
+                    throw new Error(data.message || 'Kayıt işlemi başarısız oldu.');
+                }
+            } catch (error) {
+                showToaster(error.message, 'Hata');
+            }
+        });
+
+        // Giriş formu işleme
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = e.target.querySelector('input[type="email"]').value;
+            const password = e.target.querySelector('input[type="password"]').value;
+
+            try {
+                // API'ye giriş isteği gönder
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Başarılı giriş
+                    const userData = {
+                        name: data.name,
+                        email: data.email,
+                        picture: data.picture || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.name)
+                    };
+
+                    // Kullanıcı bilgilerini kaydet
+                    localStorage.setItem('userInfo', JSON.stringify(userData));
+                    
+                    // UI'ı güncelle
+                    document.getElementById('userInfo').classList.add('show');
+                    document.getElementById('authButtons').style.display = 'none';
+                    
+                    // Modalı kapat
+                    document.getElementById('loginModal').classList.remove('show');
+                    
+                    // Başarılı giriş bildirimi
+                    showToaster('Giriş başarılı!', 'Başarılı');
+                } else {
+                    throw new Error(data.message || 'Giriş başarısız oldu.');
+                }
+            } catch (error) {
+                showToaster(error.message, 'Hata');
+            }
+        });
+
+        // Çıkış yapma fonksiyonu
+        function logout() {
+            localStorage.removeItem('userInfo');
+            document.getElementById('userInfo').classList.remove('show');
+            document.getElementById('authButtons').style.display = 'flex';
+            showToaster('Çıkış yapıldı.', 'Bilgi');
+        }
+
+        // Sayfa yüklendiğinde kullanıcı oturumunu kontrol et
+        window.addEventListener('load', checkUserSession);
     </script>
 </body>
 </html> 
